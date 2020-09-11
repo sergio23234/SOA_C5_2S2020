@@ -1,4 +1,4 @@
-# CORTO 4
+# CORTO 5
 ## Nombre: Sergio Fernando De los Rios Roque.
 ## Carnet: 201213282. 
 ### Lenguaje Utilizado: Golag. 
@@ -10,3 +10,4 @@ Se tiene en cada una de los archivos un servidor:
 - en localhost : 9090 esta corriendo el servidor del repartidor para recibir los pedidos del restaurante/cliente y enviar los mensajes al ciente
 ### link del video:
 https://youtu.be/XcYs6tjvMzk
+### version: 0.0.1
