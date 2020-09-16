@@ -34,9 +34,9 @@ func menu() {
 		if numero == 1 {
 			leer_pedidio()
 		} else if numero == 2 {
-			recibir_signal1()
+			fmt.Println(recibir_signal1())
 		} else if numero == 3 {
-			recibir_signal2()
+			fmt.Println(recibir_signal2())
 		} else if numero == 4 {
 			os.Exit(1)
 		} else {
@@ -50,7 +50,7 @@ func leer_pedidio() {
 	fmt.Scanf("%s\n", &envio.Id)
 	fmt.Println("Descripcion?")
 	fmt.Scanf("%s\n", &envio.Desc)
-	enviar_signal(envio)
+	fmt.Println(enviar_signal(envio))
 }
 
 func servidor() {
@@ -92,24 +92,25 @@ func servidor() {
 	handler := cors.Default().Handler(mux)
 	http.ListenAndServe(":9092", handler)
 }
-func enviar_signal(buf pedido) { //enviar pedido al restaurante
+func enviar_signal(buf pedido) string { //enviar pedido al restaurante
 	var r resultado
 	jjson := `{"Id":"` + buf.Id + `","Desc":"` + buf.Desc + `"}`
 	b := strings.NewReader(jjson)
 	resp, err := http.Post("http://localhost:9093/idpedido-cli", "application/json", b)
 	if err != nil {
 		fmt.Println(err)
-		// handle error
+		return "error" // handle error
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	err = json.Unmarshal(body, &r)
 	if err != nil {
-		panic(err) // This would normally be a normal Error http response but I've put this here so it's easy for you to test.
+		fmt.Println(err) // This would normally be a normal Error http response but I've put this here so it's easy for you to test.
+		return "error"
 	}
-	fmt.Println(r.Resultado)
+	return r.Resultado
 }
-func recibir_signal1() { //restaurante
+func recibir_signal1() string { //restaurante
 	var r resultado
 	resp, err := http.Get("http://localhost:9093/cli-res")
 	if err != nil {
@@ -122,9 +123,9 @@ func recibir_signal1() { //restaurante
 	if err != nil {
 		panic(err) // This would normally be a normal Error http response but I've put this here so it's easy for you to test.
 	}
-	fmt.Println(r.Resultado)
+	return r.Resultado
 }
-func recibir_signal2() { //repartidor
+func recibir_signal2() string { //repartidor
 	var r resultado
 	resp, err := http.Get("http://localhost:9093/cli-rep")
 	if err != nil {
@@ -137,5 +138,5 @@ func recibir_signal2() { //repartidor
 	if err != nil {
 		panic(err) // This would normally be a normal Error http response but I've put this here so it's easy for you to test.
 	}
-	fmt.Println(r.Resultado)
+	return r.Resultado
 }
