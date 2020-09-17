@@ -2,7 +2,7 @@
 ## Nombre: Sergio Fernando De los Rios Roque.
 ## Carnet: 201213282. 
 ### Lenguaje Utilizado: Golag. 
-### version: 0.0.2
+### version: 0.0.3
 ### Descripcion:
 Se tiene en cada una de los archivos un servidor:
 - en localhost : 9093 estar corriendo el orquestador de servicios, sera el encargado de redirigir los peididos de los demas servicios, ahora los demas servicios en vez de comunicarse entre sí, se comunican unicamente al orquestador, y el orquestador es el unico que conoce las direcciones de servicio de todos. 
