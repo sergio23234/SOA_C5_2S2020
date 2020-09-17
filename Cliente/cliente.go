@@ -115,13 +115,15 @@ func recibir_signal1() string { //restaurante
 	resp, err := http.Get("http://localhost:9093/cli-res")
 	if err != nil {
 		fmt.Println(err)
+		return "error"
 		// handle error
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	err = json.Unmarshal(body, &r)
 	if err != nil {
-		panic(err) // This would normally be a normal Error http response but I've put this here so it's easy for you to test.
+		fmt.Println(err) // This would normally be a normal Error http response but I've put this here so it's easy for you to test.
+		return "error"
 	}
 	return r.Resultado
 }
@@ -130,13 +132,15 @@ func recibir_signal2() string { //repartidor
 	resp, err := http.Get("http://localhost:9093/cli-rep")
 	if err != nil {
 		fmt.Println(err)
+		return "error"
 		// handle error
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	err = json.Unmarshal(body, &r)
 	if err != nil {
-		panic(err) // This would normally be a normal Error http response but I've put this here so it's easy for you to test.
+		fmt.Println(err) // This would normally be a normal Error http response but I've put this here so it's easy for you to test.
+		return "error"
 	}
 	return r.Resultado
 }
